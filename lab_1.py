@@ -13,6 +13,7 @@ point_2 = 0
 draw = False
 down = False
 rect = { "top": 0, "left": 0, "width": 0, "height": 0 }
+points = { "a": 0, "b": 0, "c": 0, "d": 0}
 
 gameDisplay.fill(white)
 while not gameExit:
@@ -28,6 +29,7 @@ while not gameExit:
             draw = True
             down = False
         if event.type == pygame.MOUSEMOTION and down:
+            pygame.transform.rotate(gameDisplay, 90)
             point_2 = pygame.mouse.get_pos()
             draw = True
         
@@ -43,13 +45,17 @@ while not gameExit:
         if (rect["height"] < 0):
             rect["height"] *= -1
             rect["top"] = rect["top"] - rect["height"]
+        points["a"] = (rect["left"], rect["top"])
+        points["b"] = (rect["left"] + rect["width"], rect["top"])
+        points["d"] = (rect["left"] + rect["width"], rect["top"] + rect["height"])
+        points["c"] = (rect["left"], rect["top"] + rect["height"])
 
-        pygame.draw.rect(gameDisplay, red, [
-            rect["left"],
-            rect["top"],
-            rect["width"],
-            rect["height"],
-        ])
+        pygame.draw.line(gameDisplay, red, points["a"], points["b"])
+        pygame.draw.line(gameDisplay, red, points["b"], points["d"])
+        pygame.draw.line(gameDisplay, red, points["d"], points["c"])
+        pygame.draw.line(gameDisplay, red, points["c"], points["a"])
+
         draw = False
+
 
     pygame.display.update()
