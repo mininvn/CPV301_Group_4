@@ -23,12 +23,10 @@ while not gameExit:
             draw = False
             down = True
             point_1 = pygame.mouse.get_pos()
-            print("BUTTONDOWN", point_1)
         if event.type == pygame.MOUSEBUTTONUP:
             point_2 = pygame.mouse.get_pos()
             draw = True
             down = False
-            print("BUTTONUP", point_2)
         if event.type == pygame.MOUSEMOTION and down:
             point_2 = pygame.mouse.get_pos()
             draw = True
@@ -45,7 +43,6 @@ while not gameExit:
         if (rect["height"] < 0):
             rect["height"] *= -1
             rect["top"] = rect["top"] - rect["height"]
-        print("Rect", rect)
 
         pygame.draw.rect(gameDisplay, red, [
             rect["left"],
